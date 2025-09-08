@@ -3,12 +3,12 @@
 ## 🧲 Exercício 1: Coleta de Dados (Guia + Código)
 
 Este projeto demonstra **duas formas de coleta**:
-1) **Scraping web** de preços (site de treino: `Books to Scrape` — e-commerce fictício, seguro para estudos).
-2) **Cliente de API pública** (Open-Meteo) para séries horárias meteorológicas.
+- **Scraping web** de preços (site de treino: `Books to Scrape` — e-commerce fictício, seguro para estudos).
+- **Cliente de API pública** (Open-Meteo) para séries horárias meteorológicas.
 
 > Foco: conexões seguras, *timeouts*, *retries*, *backoff*, registro de logs, tratamento de erros e documentação dos **campos extraídos**.
 
-### ▶️ Como executar
+### ▶️ 1) Como executar
 ```bash
 python -m venv .venv
 # Ative a venv (Windows: .venv\Scripts\activate | Linux/Mac: source .venv/bin/activate)
@@ -18,7 +18,7 @@ python -m src.main
 ```
 Saídas em `./data`.
 
-### Campos extraídos
+### 2) Campos extraídos
 #### 🗂️ Produtos (scraper)
 `source, product_name, price_gbp, availability, rating_1to5, url, scraped_at`
 
@@ -77,4 +77,6 @@ python -m src.load_to_postgres
 ```bash
 python -m src.load_to_mongo
 ```
+
+
 
