@@ -67,13 +67,13 @@ psql -h localhost -U postgres -d postgres -c "CREATE DATABASE aula04;"
 psql -h localhost -U postgres -d aula04 -f sql/postgres/001_create_schema.sql
 psql -h localhost -U postgres -d aula04 -f sql/postgres/002_indexes.sql
 ```
-- Carregar dados (ETL)
+- ▶️ Como executar (ETL)
 ```bash
 python -m src.load_to_postgres
 ```
 ### 4) 🍃 MongoDB
 
-- Carregar dados
+- ▶️ Como executar (ETL)
 ```bash
 python -m src.load_to_mongo
 ```
