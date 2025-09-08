@@ -1,4 +1,6 @@
-# Aula 04 — Exercício 1: Coleta de Dados (Guia + Código)
+# Aula 04 — MCP: Coleta, Armazenamento e Processamento
+
+## Exercício 1: Coleta de Dados (Guia + Código)
 
 Este projeto demonstra **duas formas de coleta**:
 1) **Scraping web** de preços (site de treino: `Books to Scrape` — e-commerce fictício, seguro para estudos).
