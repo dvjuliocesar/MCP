@@ -13,7 +13,7 @@ Este projeto demonstra **duas formas de coleta**:
 python -m venv .venv
 # Ative a venv (Windows: .venv\Scripts\activate | Linux/Mac: source .venv/bin/activate)
 pip install -r requirements.txt
-cp .env.example .env
+cp .env .env
 python -m src.main
 ```
 Saídas em `./data`.
