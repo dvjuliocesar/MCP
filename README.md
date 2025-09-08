@@ -8,7 +8,7 @@ Este projeto demonstra **duas formas de coleta**:
 
 > Foco: conexões seguras, *timeouts*, *retries*, *backoff*, registro de logs, tratamento de erros e documentação dos **campos extraídos**.
 
-## ▶️ Como executar
+### ▶️ Como executar
 ```bash
 python -m venv .venv
 # Ative a venv (Windows: .venv\Scripts\activate | Linux/Mac: source .venv/bin/activate)
@@ -18,11 +18,11 @@ python -m src.main
 ```
 Saídas em `./data`.
 
-## Campos extraídos
-### 🗂️ Produtos (scraper)
+### Campos extraídos
+#### 🗂️ Produtos (scraper)
 `source, product_name, price_gbp, availability, rating_1to5, url, scraped_at`
 
-### 🗂️ Meteorologia (API)
+#### 🗂️ Meteorologia (API)
 `city, time, temperature_2m, relative_humidity_2m, precipitation, wind_speed_10m`
 
 ## 🗄️ Exercício 2: Armazenamento de Dados (PostgreSQL + MongoDB)
@@ -33,7 +33,7 @@ Este exercício complementa a Parte 1 (coleta) e mostra como persistir os CSVs e
 
 - **MongoDB** → documentos aninhados (produtos com histórico de preços e clima horário)
 
-1) 📋 Pré-requisitos:
+### 1) 📋 Pré-requisitos:
 
 - CSVs gerados no Exercício 1, na pasta `../MCP/data/`
 
@@ -43,7 +43,7 @@ Este exercício complementa a Parte 1 (coleta) e mostra como persistir os CSVs e
 ```bash
 pip install -r requirements.txt
 ```
-2) ⚙️ Configuração (`.env`)
+### 2) ⚙️ Configuração (`.env`)
 ```ini
 # Onde estão os CSVs do Exercício 1
 DATA_DIR=../MCP/data
@@ -59,7 +59,7 @@ PG_PASSWORD=postgres
 MONGO_URI=mongodb://localhost:27017
 MONGO_DB=aula04
 ```
-3) 🐘 PostgreSQL 
+### 3) 🐘 PostgreSQL 
 
 - Criar banco e tabelas
 ```bash
