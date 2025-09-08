@@ -1,6 +1,6 @@
 # 🌐 Aula 04 — MCP: Coleta, Armazenamento e Processamento
 
-## Exercício 1: Coleta de Dados (Guia + Código)
+## 🧲 Exercício 1: Coleta de Dados (Guia + Código)
 
 Este projeto demonstra **duas formas de coleta**:
 1) **Scraping web** de preços (site de treino: `Books to Scrape` — e-commerce fictício, seguro para estudos).
@@ -24,3 +24,51 @@ Saídas em `./data`.
 
 ### 🗂️ Meteorologia (API)
 `city, time, temperature_2m, relative_humidity_2m, precipitation, wind_speed_10m`
+
+## 🗄️ Exercício 2: Armazenamento de Dados (PostgreSQL + MongoDB)
+
+Este exercício complementa a Parte 1 (coleta) e mostra como persistir os CSVs em dois tipos de bancos:
+
+- **PostgreSQL** → modelo estrela mínimo (dimensões + fatos)
+
+- **MongoDB** → documentos aninhados (produtos com histórico de preços e clima horário)
+
+1) 📋 Pré-requisitos:
+
+- CSVs gerados no Exercício 1, na pasta `../MCP/data/`
+
+- PostgreSQL e MongoDB rodando (local ou Docker)
+
+- Python 3.10+ com pacotes de requirements instalados
+```bash
+pip install -r requirements.txt
+```
+2) ⚙️ Configuração (`.env`)
+```ini
+# Onde estão os CSVs do Exercício 1
+DATA_DIR=../MCP/data
+
+# PostgreSQL
+PG_HOST=localhost
+PG_PORT=5432
+PG_DB=aula04
+PG_USER=postgres
+PG_PASSWORD=postgres
+
+# MongoDB
+MONGO_URI=mongodb://localhost:27017
+MONGO_DB=aula04
+```
+3) 🐘 PostgreSQL 
+
+- Criar banco e tabelas
+```bash
+psql -h localhost -U postgres -d postgres -c "CREATE DATABASE aula04;"
+psql -h localhost -U postgres -d aula04 -f sql/postgres/001_create_schema.sql
+psql -h localhost -U postgres -d aula04 -f sql/postgres/002_indexes.sql
+```
+- Carregar dados (ETL)
+```bash
+python -m src.load_to_postgres
+```
+
