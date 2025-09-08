@@ -71,4 +71,10 @@ psql -h localhost -U postgres -d aula04 -f sql/postgres/002_indexes.sql
 ```bash
 python -m src.load_to_postgres
 ```
+### 4) 🍃 MongoDB
+
+- Carregar dados
+```bash
+python -m src.load_to_mongo
+```
 
