@@ -63,9 +63,9 @@ MONGO_DB=mcp
 
 - Criar banco e tabelas
 ```bash
-psql -h localhost -U postgres -d postgres -c "CREATE DATABASE aula04;"
-psql -h localhost -U postgres -d aula04 -f sql/postgres/001_create_schema.sql
-psql -h localhost -U postgres -d aula04 -f sql/postgres/002_indexes.sql
+psql -h localhost -U postgres -d postgres -c "CREATE DATABASE mcp;"
+psql -h localhost -U postgres -d aula04 -f sql/postgres/schema.sql
+psql -h localhost -U postgres -d aula04 -f sql/postgres/indexes.sql
 ```
 - ▶️ Como executar (ETL)
 ```bash
