@@ -46,18 +46,18 @@ pip install -r requirements.txt
 ### 2) ⚙️ Configuração (`.env`)
 ```ini
 # Onde estão os CSVs do Exercício 1
-DATA_DIR=../MCP/data
+DATA_DIR=../data
 
 # PostgreSQL
 PG_HOST=localhost
 PG_PORT=5432
-PG_DB=aula04
+PG_DB=mcp
 PG_USER=postgres
-PG_PASSWORD=postgres
+PG_PASSWORD=postgres123
 
 # MongoDB
 MONGO_URI=mongodb://localhost:27017
-MONGO_DB=aula04
+MONGO_DB=mcp
 ```
 ### 3) 🐘 PostgreSQL 
 
