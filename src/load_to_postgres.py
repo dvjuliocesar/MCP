@@ -94,7 +94,7 @@ def upsert_city(con, city_name, country=None, lat=None, lon=None):
     con.execute(text("""
         INSERT INTO analytics.dim_city (city_name, country, latitude, longitude)
         VALUES (:city_name, :country, :latitude, :longitude)
-        ON CONFLICT (city_name, country) DO UPDATE
+        ON CONFLICT ON CONSTRAINT uq_city DO UPDATE
         SET latitude = EXCLUDED.latitude,
             longitude = EXCLUDED.longitude;
     """), {
