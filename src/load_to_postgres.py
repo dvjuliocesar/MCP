@@ -1,23 +1,30 @@
 # Bibliotecas
 import os, glob, re
+import psycopg2
 import pandas as pd
 from sqlalchemy import create_engine, text
+from sqlalchemy.engine import URL
 from dotenv import load_dotenv
 from loguru import logger
 
 load_dotenv()
-
 DATA_DIR = os.getenv("DATA_DIR", "./data")
 PG_HOST = os.getenv("PG_HOST", "localhost")
 PG_PORT = os.getenv("PG_PORT", "5432")
-PG_DB = os.getenv("PG_DB", "aula04")
+PG_DB = os.getenv("PG_DB", "mcp")
 PG_USER = os.getenv("PG_USER", "postgres")
-PG_PASSWORD = os.getenv("PG_PASSWORD", "postgres")
+PG_PASSWORD = os.getenv("PG_PASSWORD", "postgres123")
 
-engine = create_engine(
-    f"postgresql+psycopg2://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_PORT}/{PG_DB}",
-    future=True
+url = URL.create(
+    "postgresql+psycopg2",
+    username=os.getenv("PG_USER"),
+    password=os.getenv("PG_PASSWORD"),
+    host=os.getenv("PG_HOST", "localhost"),
+    port=int(os.getenv("PG_PORT", "5432")),
+    database=os.getenv("PG_DB", "mcp"),
 )
+
+engine = create_engine(url, future=True)
 
 def latest(pattern):
     files = sorted(glob.glob(pattern))
@@ -87,10 +94,15 @@ def upsert_city(con, city_name, country=None, lat=None, lon=None):
     con.execute(text("""
         INSERT INTO analytics.dim_city (city_name, country, latitude, longitude)
         VALUES (:city_name, :country, :latitude, :longitude)
-        ON CONFLICT (city_name, COALESCE(country,'')) DO UPDATE
+        ON CONFLICT (city_name, country) DO UPDATE
         SET latitude = EXCLUDED.latitude,
             longitude = EXCLUDED.longitude;
-    """), {"city_name": city_name, "country": country or "", "latitude": lat, "longitude": lon})
+    """), {
+        "city_name": city_name,
+        "country": (country or ""),  # compatível com NOT NULL DEFAULT ''
+        "latitude": lat,
+        "longitude": lon
+    })
 
 def insert_weather(df, city_name):
     with engine.begin() as con:
