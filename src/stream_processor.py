@@ -1,6 +1,7 @@
 import time, argparse
 from pathlib import Path
-from processor_file import run
+from .processor_file import run
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--watch-dir", required=True)
