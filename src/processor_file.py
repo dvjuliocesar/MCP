@@ -1,7 +1,10 @@
 import argparse
 from pathlib import Path
 import pandas as pd
-from transforms import clean_products, agg_price_daily, detect_price_anomalies, clean_weather, agg_weather_daily, detect_weather_anomalies
+from .transforms import (
+    clean_products, agg_price_daily, detect_price_anomalies,
+    clean_weather, agg_weather_daily, detect_weather_anomalies
+)
 
 def run(data_dir: Path, out_dir: Path):
     out_cur = out_dir / "curated"; out_agg = out_dir / "agg"; out_alerts = out_dir / "alerts"; out_rep = out_dir / "reports"
