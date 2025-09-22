@@ -77,6 +77,71 @@ python -m src.load_to_postgres
 ```bash
 python -m src.load_to_mongo
 ```
+## ⚙️ Exercício 3: Pipeline de Processamento (File + “Stream”)
+Este exercício complementa as Partes 1 e 2 com um **pipeline de transformação** para gerar **dados curados, agregações, alertas e relatórios** a partir dos CSVs de produtos e clima.
 
+- **File Processor (batch)** → lê CSV/JSON de uma pasta, aplica limpeza + normalização + agregações + detecção de anomalias, e salva as saídas.
 
+- **Stream Processor (near real-time)** → observa uma pasta; quando entra/é alterado um CSV, reexecuta o pipeline automaticamente.
 
+1) 📋 Pré-requisitos
+
+- CSVs do Exercício 1 em ../aula04_mcp_coleta/data/ (ou outra pasta sua).
+
+- Python 3.10+ e dependências instaladas.
+
+2) 🧱 O que o pipeline faz (resumo)
+
+**Produtos/Preços**
+
+- Converte datas para UTC, tipa colunas numéricas.
+
+- Regras de plausibilidade: `price_gbp >= 0` , `rating_1to5 ∈ [1,5]`.
+
+- Normaliza `url` e deduplica por (`url,scraped_at`).
+
+- Agregação diária por URL: `min/avg/max/last/n_obs`.
+
+- Anomalias: z-score do delta de preço entre leituras consecutivas.
+
+**Clima (hourly)**
+
+- Datas UTC + tipagem numérica.
+
+- Plausibilidade: `temperature [-80,80]`, `humidity [0,100]`, `precip >= 0`, `wind >= 0`.
+
+- Dedup por (`city,time`).
+
+- Agregação diária por cidade: `avg_temp/avg_rh/total_precip/avg_wind/n_obs`.
+
+- Anomalias: z-score de temperatura e IQR para precipitação.
+
+**Saídas geradas**
+```lua
+output/
+├─ curated/
+│  ├─ products_curated.parquet
+│  └─ weather_hourly_curated.parquet
+├─ agg/
+│  ├─ daily_price_stats.csv
+│  └─ weather_daily_stats.csv
+├─ alerts/
+│  ├─ price_anomalies.csv
+│  └─ weather_anomalies.csv
+└─ reports/
+   ├─ chart_price_counts.png
+   ├─ chart_temp_daily.png
+   └─ report.md
+```
+
+3) ▶️ Execução em lote (File Processor)
+
+```bash
+python -m src.processor_file --data-dir ../aula04_mcp_coleta/data --out-dir ./output
+```
+
+4) 🔁 Execução “em tempo quase real” (Stream Processor)
+
+```bash
+python -m src.stream_processor --watch-dir ../aula04_mcp_coleta/data --out-dir ./output --poll-seconds 5
+```
