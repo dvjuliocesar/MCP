@@ -84,13 +84,13 @@ Este exercício complementa as Partes 1 e 2 com um **pipeline de transformação
 
 - **Stream Processor (near real-time)** → observa uma pasta; quando entra/é alterado um CSV, reexecuta o pipeline automaticamente.
 
-1) 📋 Pré-requisitos
+### 1) 📋 Pré-requisitos
 
 - CSVs do Exercício 1 em ../aula04_mcp_coleta/data/ (ou outra pasta sua).
 
 - Python 3.10+ e dependências instaladas.
 
-2) 🧱 O que o pipeline faz (resumo)
+### 2) 🧱 O que o pipeline faz (resumo)
 
 **Produtos/Preços**
 
@@ -134,13 +134,13 @@ output/
    └─ report.md
 ```
 
-3) ▶️ Execução em lote (File Processor)
+### 3) ▶️ Execução em lote (File Processor)
 
 ```bash
 python -m src.processor_file --data-dir ../aula04_mcp_coleta/data --out-dir ./output
 ```
 
-4) 🔁 Execução “em tempo quase real” (Stream Processor)
+### 4) 🔁 Execução “em tempo quase real” (Stream Processor)
 
 ```bash
 python -m src.stream_processor --watch-dir ../aula04_mcp_coleta/data --out-dir ./output --poll-seconds 5
